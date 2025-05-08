@@ -4,7 +4,7 @@ import Home from './components/core/Home'
 import Shop from './components/core/Shop'
 
 import Signin from './components/core/Signin'
-import Signup from './components/core/SignUp'
+import Signup from './components/core/Signup'
 
 function AppRoutes() {
   return (

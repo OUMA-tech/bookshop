@@ -18,7 +18,6 @@ const PageHeader = ({title, subTitle}: PageHeaderProps) => {
                 {subTitle}
               </Typography>
             </Box>
-            <Button variant="contained">操作按钮</Button>
           </Box>
         </Box>
       )
