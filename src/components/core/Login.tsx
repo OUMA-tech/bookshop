@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
-function Signin() {
+function Login() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,15 +25,16 @@ function Signin() {
       setError('');
   
       try {
-        const response = await axios.post('https://your-api.com/api/login', {
+        const response = await axios.post('http://localhost:5000/api/auth/login', {
           email,
           password,
+        }, {
+          withCredentials: true // 也必须加上
         });
   
         const { token } = response.data;
         localStorage.setItem('token', token);
   
-        // 登录成功后的跳转（如使用 React Router v6）
         navigate('/dashboard');
       } catch (err: any) {
         setError(err.response?.data?.message || 'Login failed');
@@ -77,4 +78,4 @@ function Signin() {
     )
 }
 
-export default Signin
+export default Login

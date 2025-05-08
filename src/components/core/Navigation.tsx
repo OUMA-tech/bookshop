@@ -22,10 +22,10 @@ function Navigation() {
             <Link to="/shop">Shop</Link>
         </MenuItem>
         <MenuItem className={isSignin}>
-            <Link to="/signin">SignIn</Link>
+            <Link to="/login">SignIn</Link>
         </MenuItem>
         <MenuItem className={isSignup}>
-            <Link to="/signup">SignUp</Link>
+            <Link to="/register">SignUp</Link>
         </MenuItem>
     </Menu>
   )

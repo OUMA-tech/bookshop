@@ -3,16 +3,17 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './components/core/Home'
 import Shop from './components/core/Shop'
 
-import Signin from './components/core/Signin'
-import Signup from './components/core/Signup'
+import Login from './components/core/Login'
+import Register from './components/core/Register'
+
 
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />}/>
       <Route path="/shop" element={<Shop />}/>
-      <Route path="/signin" element={<Signin />}/>
-      <Route path="/signup" element={<Signup />}/>
+      <Route path="/login" element={<Login />}/>
+      <Route path="/register" element={<Register />}/>
     </Routes>
   )
 }
