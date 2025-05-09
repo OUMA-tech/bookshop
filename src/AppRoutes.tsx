@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './components/core/Home'
 import Shop from './components/core/Shop'
 
-import Login from './components/core/Login'
-import Register from './components/core/Register'
+import { LoginPage } from './pages/user/LoginPage'
+import { RegisterPage } from './pages/user/RegisterPage'
 
 
 function AppRoutes() {
@@ -12,8 +12,8 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />}/>
       <Route path="/shop" element={<Shop />}/>
-      <Route path="/login" element={<Login />}/>
-      <Route path="/register" element={<Register />}/>
+      <Route path="/login" element={<LoginPage />}/>
+      <Route path="/register" element={<RegisterPage />}/>
     </Routes>
   )
 }
