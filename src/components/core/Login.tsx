@@ -1,4 +1,4 @@
-import { setUser } from "../../features/user/userSlice";
+import { setUser } from "../../features/authentic/authSlice";
 import Layout from "./Layout"
 import { useDispatch } from 'react-redux';
 import { Container, Box, TextField, Button, Typography, Paper, Alert } from '@mui/material';
@@ -6,6 +6,17 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+}
+
+export interface LoginResponse {
+  message: string;
+  token: string;
+  user: User;
+}
 
 function Login() {
     const dispatch = useDispatch();
@@ -14,8 +25,16 @@ function Login() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleLoginSuccess = (userData: { name: string; email: string }) => {
-        dispatch(setUser(userData));
+    const handleLoginSuccess = (userData: LoginResponse) => {
+      // 1. save to Redux
+      dispatch(setUser({
+        id: userData.user.id,
+        username: userData.user.username,
+        token: userData.token,
+      }));
+
+      // 2. save to localStorage
+      localStorage.setItem('auth', JSON.stringify(userData));
     };
 
 
@@ -25,21 +44,23 @@ function Login() {
       setError('');
   
       try {
-        const response = await axios.post('http://localhost:5000/api/auth/login', {
+        const response:LoginResponse = await axios.post('http://localhost:5000/api/auth/login', {
           email,
           password,
         }, {
           withCredentials: true // 也必须加上
         });
   
-        const { token } = response.data;
-        localStorage.setItem('token', token);
+        
+        handleLoginSuccess(response);
   
         navigate('/dashboard');
       } catch (err: any) {
         setError(err.response?.data?.message || 'Login failed');
       }
     }
+
+
     return (
         <>
             <Layout title="ALBOOK" subTitle="Signin">Login</Layout>
