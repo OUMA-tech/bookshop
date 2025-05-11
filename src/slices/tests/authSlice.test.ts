@@ -1,5 +1,5 @@
 // authSlice.test.ts
-import authReducer, { setUser, clearUser } from './authSlice';
+import authReducer, { setUser, clearUser } from '../../slices/authSlice';
 
 describe('authSlice tests', () => {
   const initialState = {
@@ -7,18 +7,19 @@ describe('authSlice tests', () => {
       id: null,
       username: null,
       token: null,
+      role: null,
     },
     isAuthenticated: false,
   };
 
   it('should handle setUser', () => {
-    const userData = { id: '123', username: 'test@example.com', token: 'some-token' };
+    const userData = { id: '123', username: 'test', token: 'some-token', role: 'admin' };
     
-    // 调用 setUser action
+    //  setUser action
     const action = setUser(userData);
     const state = authReducer(initialState, action);
 
-    // 验证 user 信息和 isAuthenticated
+    //  verify
     expect(state.user.id).toBe(userData.id);
     expect(state.user.username).toBe(userData.username);
     expect(state.user.token).toBe(userData.token);
@@ -27,11 +28,11 @@ describe('authSlice tests', () => {
 
   it('should handle clearUser', () => {
     const loggedInState = {
-      user: { id: '123', username: 'test@example.com', token: 'some-token' },
+      user: { id: '123', username: 'test', token: 'some-token', role: 'admin' },
       isAuthenticated: true,
     };
     
-    // 调用 clearUser action
+    //  clearUser action
     const action = clearUser();
     const state = authReducer(loggedInState, action);
 

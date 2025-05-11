@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { LoginForm } from '../../components/user/LoginForm';
-import { setUser } from '../../features/authentic/authSlice';
-import axios from 'axios';
+import { setUser } from '../../slices/authSlice';
+import { login } from '../../features/common/authAPI';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
@@ -10,6 +10,7 @@ export interface User {
   id: string;
   username: string;
   email: string;
+  role: string;
 }
 
 export interface LoginResponse {
@@ -28,6 +29,7 @@ export const LoginPage = () => {
       id: res.user.id,
       username: res.user.username,
       token: res.token,
+      role: res.user.role
     };
     // 1. save to Redux
     dispatch(setUser(userData));
@@ -39,16 +41,9 @@ export const LoginPage = () => {
   
   const handleSubmit = async ({ email, password }: { email: string; password: string }) => {
     setError('');
-    try {
-      const response:LoginResponse = await axios.post('http://localhost:5000/api/auth/login', {
-        email,
-        password,
-      }, {
-        withCredentials: true 
-      });
-  
-      
-      handleLoginSuccess(response);
+    try {      
+      const data = await login(email, password);
+      handleLoginSuccess(data);
   
       navigate('/dashboard');
     } catch (err: any) {

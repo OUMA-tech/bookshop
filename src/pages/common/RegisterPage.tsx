@@ -1,23 +1,11 @@
-import { useState } from 'react';
-import axios from 'axios';
 import { RegisterForm } from '../../components/user/RegisterForm';
+import { register } from '../../features/common/authAPI';
 
 export const RegisterPage = () => {
-    const [error, setError] = useState('');
-    
+
     const handleRegister = async ({ email, password, username }: { email: string; password: string; username: string }) => {
         try {
-            const response = await axios.post(
-              'http://localhost:5000/api/auth/register',
-              {
-                email,
-                password,
-                username,
-              },
-              {
-                withCredentials: true, 
-              }
-            );
+            const response = await register({username, email, password});
         
             return { success: true, message: response.data.message || 'register success!' };
           } catch (error: any) {
